@@ -67,21 +67,21 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
 
 <details>
   <summary>
-    <a href="#2-error-handling-practices">2. rácticas de manejo de errores (12)</a>
+    <a href="#2-error-handling-practices">2. Prácticas de manejo de errores (12)</a>
   </summary>
 
-&emsp;&emsp;[2.1 Usar Async-Await o promesas para el manejo de errores asíncronos ](#-21-use-async-await-or-promises-for-async-error-handling)</br>
-&emsp;&emsp;[2.2 sar solo el objeto de error incorporado `#strategic`](#-22-use-only-the-built-in-error-object)</br>
-&emsp;&emsp;[2.3 Distinguir entre errores operativos y de programador `#strategic`](#-23-distinguish-operational-vs-programmer-errors)</br>
-&emsp;&emsp;[2.4 Manejar errores de forma centralizada, no dentro de un middleware `#strategic`](#-24-handle-errors-centrally-not-within-a-middleware)</br>
-&emsp;&emsp;[2.5 Documentar errores de API usando Swagger o GraphQL `#modified-recently`](#-25-document-api-errors-using-swagger-or-graphql)</br>
-&emsp;&emsp;[2.6 Salir del proceso con gracia cuando un extraño llega a la ciudad `#strategic`](#-26-exit-the-process-gracefully-when-a-stranger-comes-to-town)</br>
-&emsp;&emsp;[2.7 Usar un registrador maduro para aumentar la visibilidad de errores ](#-27-use-a-mature-logger-to-increase-error-visibility)</br>
-&emsp;&emsp;[2.8 Pruebe los flujos de error usando su marco de prueba favorito ](#-28-test-error-flows-using-your-favorite-test-framework)</br>
-&emsp;&emsp;[2.9 Descubrir errores y tiempo de inactividad con productos de APM](#-29-discover-errors-and-downtime-using-apm-products)</br>
-&emsp;&emsp;[2.10 Detectar rechazos de promesas no gestionados `#modified-recently`](#-210-catch-unhandled-promise-rejections)</br>
-&emsp;&emsp;[2.11 Fallo-rapido, validar argumentos usando una biblioteca dedicada](#-211-fail-fast-validate-arguments-using-a-dedicated-library)</br>
-&emsp;&emsp;[2.12 Siempre espere las promesas antes de regresar para evitar un seguimiento de pila parcial `#new`](#-212-always-await-promises-before-returning-to-avoid-a-partial-stacktrace)</br>
+&emsp;&emsp;[2.1 Usar Async-Await o promesas para el manejo de errores asíncronos ](#-21-Usar-Async-Await-o-promesas-para-el-manejo-de-errores-asíncronos)</br>
+&emsp;&emsp;[2.2 Usar solo el objeto de error incorporado `#strategic`](#-22-Usar-solo-el-objeto-de-error-incorporado)</br>
+&emsp;&emsp;[2.3 Distinguir entre errores operativos y de programador `#strategic`](#-23-Distinguir-entre-errores-operativos-y-de-programador)</br>
+&emsp;&emsp;[2.4 Manejar errores de forma centralizada, no dentro de un middleware `#strategic`](#-24-Manejar-errores-de-forma-centralizada-no-dentro-de-un-middleware)</br>
+&emsp;&emsp;[2.5 Documentar errores de API usando Swagger o GraphQL `#modified-recently`](#-25-Documentar-errores-de-API-usando-Swagger-o-GraphQL)</br>
+&emsp;&emsp;[2.6 Salir del proceso con gracia cuando un extraño llega a la ciudad `#strategic`](#-26-Salir-del-proceso-con-gracia-cuando-un-extraño-llega-a-la-ciudad)</br>
+&emsp;&emsp;[2.7 Usar un registrador maduro para aumentar la visibilidad de errores ](#-27-Usar-un-registrador-maduro-para-aumentar-la-visibilidad-de-errores)</br>
+&emsp;&emsp;[2.8 Pruebe los flujos de error usando su marco de prueba favorito ](#-28-Pruebe-los-flujos-de-error-usando-su-marco-de-prueba-favorito)</br>
+&emsp;&emsp;[2.9 Descubrir errores y tiempo de inactividad con productos de APM](#-29-Descubrir-errores-y-tiempo-de-inactividad-con-productos-de-APM)</br>
+&emsp;&emsp;[2.10 Detectar rechazos de promesas no gestionados `#modified-recently`](#-210-Detectar-rechazos-de-promesas-no-gestionados)</br>
+&emsp;&emsp;[2.11 Fallo-rapido, validar argumentos usando una biblioteca dedicada](#-211-Fallo-rapido-validar-argumentos-usando-una-biblioteca-dedicada)</br>
+&emsp;&emsp;[2.12 Siempre espere las promesas antes de regresar para evitar un seguimiento de pila parcial `#new`](#-212-Siempre-espere-las-promesas-antes-de-regresar-para-evitar-un-seguimiento-de-pila-parcial)</br>
 
 </details>
 
@@ -93,7 +93,7 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
 
 
 <br/><br/>
-# `1. Practicas de Estructura del Projecto `
+# `1. Practicas de Estructura del Projecto`
 
 ## ![✔] 1.1 Estructura tu solucion por componentes
 
@@ -145,3 +145,132 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
 <br/><br/><br/>
 <p align="right"><a href="#table-of-contents">⬆ Regresar hacia arriba</a>
 </p>
+
+<br/><br/>
+
+# `2. Prácticas de manejo de errores`
+
+## ![✔] 2.1 Usar Async-Await o promesas para el manejo de errores asíncronos 
+
+**TL;DR:** Manejar errores asincrónicos en el estilo de devolución de llamada es probablemente el camino más rápido al infierno (también conocido como la pirámide de la perdición). El mejor regalo que le puede dar a su código es usar una biblioteca de promesa de buena reputación o async-await en su lugar, lo que permite una sintaxis de código mucho más compacta y familiar como try-catch
+
+**De lo contrario:** El estilo de devolución de llamada de Node.js, función (err, respuesta), es una forma prometedora de código que no se puede mantener debido a la combinación de manejo de errores con código casual, anidamiento excesivo y patrones de codificación incómodos
+
+🔗 [**Leer Más: evitar callbacks**](./sections/errorhandling/asyncerrorhandling.md)
+
+<br/><br/>
+
+## ![✔] 2.2 Usar solo el objeto de error incorporado
+
+**TL;DR:** Muchos arrojan errores como una cadena o como algún tipo personalizado; esto complica la lógica de manejo de errores y la interoperabilidad entre módulos. Ya sea que rechace una promesa, genere una excepción o emita un error, usar solo el objeto Error integrado (o un objeto que amplíe el objeto Error integrado) aumentará la uniformidad y evitará la pérdida de información. Hay una regla ESLint `no-throw-literal` que verifica estrictamente eso (aunque tiene algunas [limitaciones] (https://eslint.org/docs/rules/no-throw-literal) que se pueden resolver usando TypeScript y configurando la regla `@typescript-eslint/no-throw-literal`)
+
+**De lo contrario:** Al invocar algún componente, no estar seguro de qué tipo de errores se obtienen, hace que el manejo adecuado de errores sea mucho más difícil. Peor aún, el uso de tipos personalizados para describir errores podría provocar la pérdida de información crítica sobre errores, como el seguimiento de la pila.
+
+🔗 [**Leer Más: usando el objeto de error integrado**](./sections/errorhandling/useonlythebuiltinerror.md)
+
+<br/><br/>
+
+## ![✔] 2.3 Distinguir entre errores operativos y de programador
+
+**TL;DR:** Los errores operativos (p. ej., la API recibió una entrada no válida) se refieren a casos conocidos en los que el impacto del error se comprende completamente y se puede manejar con cuidado. Por otro lado, el error del programador (por ejemplo, intentar leer una variable indefinida) se refiere a fallas de código desconocidas que dictan que se reinicie correctamente la aplicación.
+
+**De lo contrario:** siempre puede reiniciar la aplicación cuando aparece un error, pero ¿por qué decepcionar a ~5000 usuarios en línea debido a un error operativo menor previsto? Lo contrario tampoco es lo ideal: mantener la aplicación activa cuando se produjo un problema desconocido (error del programador) podría provocar un comportamiento imprevisto. Diferenciar los dos permite actuar con tacto y aplicar un enfoque equilibrado basado en el contexto dado.
+
+🔗 [**Leer Más: error operativo vs programador**](./sections/errorhandling/operationalvsprogrammererror.md)
+
+<br/><br/>
+
+## ![✔] 2.4 Manejar errores de forma centralizada, no dentro de un middleware
+
+**TL;DR:** La lógica de manejo de errores, como el correo al administrador y el registro, debe encapsularse en un objeto dedicado y centralizado al que todos los puntos finales (por ejemplo, Express middleware, trabajos cron, pruebas unitarias) llamen cuando se produzca un error.
+
+**De lo contrario:** No manejar errores dentro de un solo lugar conducirá a la duplicación de código y probablemente a errores manejados incorrectamente
+
+🔗 [**Leer Más: manejo de errores en un lugar centralizado**](./sections/errorhandling/centralizedhandling.md)
+
+<br/><br/>
+
+## ![✔] 2.5 Documentar errores de API usando Swagger o GraphQL
+
+**TL;DR:** Infórmeles a las personas que llaman a la API qué errores pueden surgir a cambio para que puedan manejarlos cuidadosamente sin fallar. Para las API RESTful, esto generalmente se hace con marcos de documentación como Swagger. Si está utilizando GraphQL, también puede utilizar su esquema y sus comentarios.
+
+**De lo contrario:** un cliente API podría decidir fallar y reiniciar solo porque recibió un error que no pudo entender. Nota: la persona que llama a su API podría ser usted (muy típico en un entorno de microservicio)
+
+🔗 [**Leer Más: documentando errores de API en Swagger o GraphQL**](./sections/errorhandling/documentingusingswagger.md)
+
+<br/><br/>
+
+## ![✔] 2.6 Salir del proceso con gracia cuando un extraño llega a la ciudad
+
+**TL;DR:** Cuando ocurre un error desconocido (un error del desarrollador, consulte la práctica recomendada 2.3), existe incertidumbre sobre el estado de la aplicación. La práctica común sugiere reiniciar el proceso con cuidado utilizando una herramienta de gestión de procesos como [Forever](https://www.npmjs.com/package/forever) o [PM2](http://pm2.keymetrics.io/)
+
+**De lo contrario:** cuando ocurre una excepción desconocida, algún objeto puede estar en un estado defectuoso (por ejemplo, un emisor de eventos que se usa globalmente y ya no activa eventos debido a alguna falla interna) y todas las solicitudes futuras pueden fallar o comportarse de manera descabellada.
+
+🔗 [**Leer Más: cerrando el proceso**](./sections/errorhandling/shuttingtheprocess.md)
+
+<br/><br/>
+
+## ![✔] 2.7 Usar un registrador maduro para aumentar la visibilidad de errores
+
+**TL;DR:** Un conjunto de herramientas de registro maduras como [Pino](https://github.com/pinojs/pino) o [Log4js](https://www.npmjs.com/package/log4js) , acelerará el descubrimiento y la comprensión de errores. Así que olvídate de console.log
+
+**De lo contrario:** hojear console.logs o manualmente a través de un archivo de texto desordenado sin herramientas de consulta o un visor de registro decente puede mantenerlo ocupado en el trabajo hasta tarde
+
+🔗 [**Leer Más: usando un registrador maduro**](./sections/errorhandling/usematurelogger.md)
+
+<br/><br/>
+
+## ![✔] 2.8 Pruebe los flujos de error usando su marco de prueba favorito
+
+**TL;DR:** Ya sea control de calidad automatizado profesional o pruebas de desarrollador manuales simples: asegúrese de que su código no solo satisfaga los escenarios positivos, sino que también maneje y devuelva los errores correctos. Los marcos de prueba como Mocha & Chai pueden manejar esto fácilmente (ver ejemplos de código dentro de la "ventana emergente Gist")
+
+**De lo contrario:** Sin pruebas, ya sea de forma automática o manual, no puede confiar en que su código devuelva los errores correctos. Sin errores significativos: no hay manejo de errores
+
+🔗 [**Leer Más: pruebas de flujos de error**](./sections/errorhandling/testingerrorflows.md)
+
+<br/><br/>
+
+## ![✔] 2.9 Descubrir errores y tiempo de inactividad con productos de APM
+
+**TL;DR:** Los productos de supervisión y rendimiento (también conocidos como APM) miden de forma proactiva su base de código o API para que puedan resaltar automáticamente errores, bloqueos y partes lentas que le faltaban
+
+**De lo contrario:** Es posible que dedique un gran esfuerzo a medir el rendimiento de la API y los tiempos de inactividad, probablemente nunca se dará cuenta de cuáles son sus partes de código más lentas en el escenario del mundo real y cómo afectan a la experiencia de usuario.
+
+🔗 [**Leer Más: Usando APM productos**](./sections/errorhandling/apmproducts.md)
+
+<br/><br/>
+
+## ![✔] 2.10 Detectar rechazos de promesas no gestionados
+
+**TL;DR:** Cualquier excepción lanzada dentro de una promesa será tragada y descartada a menos que un desarrollador no se olvide de manejarla explícitamente. ¡Incluso si su código está suscrito a`process.uncaughtException`! Supere esto registrándose en el evento `process.unhandledRejection`
+
+**De lo contrario:** Sus errores serán absorbidos y no dejarán rastro. Nada de que preocuparse
+
+🔗 [**Leer Más: detección de rechazos de promesas no controlados**](./sections/errorhandling/catchunhandledpromiserejection.md)
+
+<br/><br/>
+
+## ![✔] 2.11 Fallo-rapido, validar argumentos usando una biblioteca dedicada
+
+**TL;DR:** Afirme la entrada de API para evitar errores desagradables que son mucho más difíciles de rastrear más adelante. El código de validación suele ser tedioso a menos que esté utilizando una biblioteca auxiliar muy interesante como [ajv](https://www.npmjs.com/package/ajv) y [Joi](https://www.npmjs.com/package /yo)
+
+**De lo contrario:** Considere esto: su función espera un argumento numérico "Descuento" que la persona que llama se olvida de pasar, más tarde, su código verifica si ¡Descuento! = 0 (la cantidad de descuento permitido es mayor que cero), entonces lo hará permitir al usuario disfrutar de un descuento. Dios mío, qué bicho más desagradable. ¿Puedes verlo?
+
+🔗 [**Leer Más: Falling fast**](./sections/errorhandling/failfast.md)
+
+<br/><br/>
+
+## ![✔] 2.12 Siempre espere las promesas antes de regresar para evitar un seguimiento de pila parcial `#new`
+
+**TL;DR:** Siempre haga `return await` cuando devuelva una promesa para beneficiarse del seguimiento completo del error. si un la función devuelve una promesa, esa función debe declararse como función `async` y explícitamente
+`await` (esperar) la promesa antes de devolverla
+
+**De lo contrario:** La función que devuelve una promesa sin esperar no aparecerá en el seguimiento de la pila.
+Tales marcos faltantes probablemente complicarían la comprensión del flujo que conduce al error,
+especialmente si la causa del comportamiento anormal está dentro de la función que falta
+
+🔗 [**Leer Más: retorno de promesas**](./sections/errorhandling/returningpromises.md)
+
+<br/><br/><br/>
+
+<p align="right"><a href="#table-of-contents">⬆ Return to top</a></p>
