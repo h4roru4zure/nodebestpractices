@@ -56,8 +56,8 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
     <a href="#1-project-structure-practices">1. Practicas de Estructura del proyecto (5)</a>
   </summary>
 
-&emsp;&emsp;[1.1 Estructura tu solucion por componentes`#strategic`](#-11-structure-your-solution-by-components)</br>
-&emsp;&emsp;[1.2 Coloque tus componentes en capas, mantenga la capa web dentro de sus límites `#strategic`](#-12-layer-your-components-keep-the-web-layer-within-its-boundaries)</br>
+&emsp;&emsp;[1.1 Estructura tu solucion por componentes`#strategic`](#-11-Estructura-tu-solucion-por-componentes)</br>
+&emsp;&emsp;[1.2 Coloque tus componentes en capas, mantenga la capa web dentro de sus límites `#strategic`](#-12-Coloca-tus-componentes-en-capas, mantén-la-capa-web-dentro-de-sus-límites)</br>
 &emsp;&emsp;[1.3 Envurelve las utilidades comunes como paquetes npm](#-13-wrap-common-utilities-as-npm-packages)</br>
 &emsp;&emsp;[1.4 Separar la 'aplicación' y el 'servidor' de Express](#-14-separate-express-app-and-server)</br>
 &emsp;&emsp;[1.5 Usar configuración jerárquica, segura y en un entorno consciente `#modified-recently`](#-15-use-environment-aware-secure-and-hierarchical-config)</br>
@@ -94,7 +94,7 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
 <br/><br/>
 # `1. Practicas de Estructura del Projecto `
 
-## ![✔] 1.1 Structure your solution by components
+## ![✔] 1.1 Estructura tu solucion por componentes
 
 **TL;DR:** El peor escollo de las aplicaciones grandes es mantener una enorme base de código con cientos de dependencias: un monolito de este tipo ralentiza a los desarrolladores cuando intentan incorporar nuevas funciones. En su lugar, divida su código en componentes, cada uno tiene su carpeta o una base de código dedicada, y asegúrese de que cada unidad se mantenga pequeña y simple. Visite 'Leer más' a continuación para ver ejemplos de la estructura correcta del proyecto
 
