@@ -1,3 +1,4 @@
+
 [✔]: assets/images/checkbox-small-blue.png
 
 # Node.js Mejores Practicas
@@ -57,11 +58,10 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
   </summary>
 
 &emsp;&emsp;[1.1 Estructura tu solucion por componentes`#strategic`](#-11-Estructura-tu-solucion-por-componentes)</br>
-
-&emsp;&emsp;[1.2 Coloque tus componentes en capas, mantenga la capa web dentro de sus límites `#strategic`](#-12-Coloca-tus-componentes-en-capas,-mantén-la-capa-web-dentro-de-sus-límites)</br>
-&emsp;&emsp;[1.3 Envurelve las utilidades comunes como paquetes npm](#-13-wrap-common-utilities-as-npm-packages)</br>
-&emsp;&emsp;[1.4 Separar la 'aplicación' y el 'servidor' de Express](#-14-separate-express-app-and-server)</br>
-&emsp;&emsp;[1.5 Usar configuración jerárquica, segura y en un entorno consciente `#modified-recently`](#-15-use-environment-aware-secure-and-hierarchical-config)</br>
+&emsp;&emsp;[1.2 Coloque tus componentes en capas, mantenga la capa web dentro de sus límites `#strategic`](#-12-Coloca-tus-componentes-en-capas-mantén-la-capa-web-dentro-de-sus-límites)</br>
+&emsp;&emsp;[1.3 Envurelve las utilidades comunes como paquetes npm](#-13-Envuelva-las-utilidades-comunes-como-paquetes-npm)</br>
+&emsp;&emsp;[1.4 Separar la 'aplicación' y el 'servidor' de Express](#-14-Separar-la-aplicación-y-el-servidor-de-Express)</br>
+&emsp;&emsp;[1.5 Usar configuración jerárquica, segura y en un entorno consciente `#modified-recently`](#-15-Usar-configuración-jerárquica-segura-y-en-un-entorno-consciente)</br>
 
 </details>
 
