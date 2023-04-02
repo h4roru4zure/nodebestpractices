@@ -57,7 +57,7 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
   </summary>
 
 &emsp;&emsp;[1.1 Estructura tu solucion por componentes`#strategic`](#-11-structure-your-solution-by-components)</br>
-&emsp;&emsp;[1.2 Coloque los componentes en capas, mantenga la capa web dentro de sus límites `#strategic`](#-12-layer-your-components-keep-the-web-layer-within-its-boundaries)</br>
+&emsp;&emsp;[1.2 Coloque tus componentes en capas, mantenga la capa web dentro de sus límites `#strategic`](#-12-layer-your-components-keep-the-web-layer-within-its-boundaries)</br>
 &emsp;&emsp;[1.3 Envurelve las utilidades comunes como paquetes npm](#-13-wrap-common-utilities-as-npm-packages)</br>
 &emsp;&emsp;[1.4 Separar la 'aplicación' y el 'servidor' de Express](#-14-separate-express-app-and-server)</br>
 &emsp;&emsp;[1.5 Usar configuración jerárquica, segura y en un entorno consciente `#modified-recently`](#-15-use-environment-aware-secure-and-hierarchical-config)</br>
@@ -83,3 +83,62 @@ Leer en un idioma diferente: [![CN](./assets/flags/CN.png)**CN**](./README.chine
 &emsp;&emsp;[2.12 Siempre espere las promesas antes de regresar para evitar un seguimiento de pila parcial `#new`](#-212-always-await-promises-before-returning-to-avoid-a-partial-stacktrace)</br>
 
 </details>
+
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+
+
+<br/><br/>
+# `1. Practicas de Estructura del Projecto `
+
+## ![✔] 1.1 Structure your solution by components
+
+**TL;DR:** El peor escollo de las aplicaciones grandes es mantener una enorme base de código con cientos de dependencias: un monolito de este tipo ralentiza a los desarrolladores cuando intentan incorporar nuevas funciones. En su lugar, divida su código en componentes, cada uno tiene su carpeta o una base de código dedicada, y asegúrese de que cada unidad se mantenga pequeña y simple. Visite 'Leer más' a continuación para ver ejemplos de la estructura correcta del proyecto
+
+**De lo contrario:** WCuando los desarrolladores que codifican nuevas funciones luchan por darse cuenta del impacto de su cambio y temen romper otros componentes dependientes, las implementaciones se vuelven más lentas y riesgosas. También se considera más difícil escalar horizontalmente cuando todas las unidades de negocio no están separadas.
+🔗 [**Leer Más: estructura por componentes**](./sections/projectstructre/breakintcomponents.md)
+
+<br/><br/>
+
+## ![✔] 1.2 Coloca tus componentes en capas, mantén la capa web dentro de sus límites
+
+**TL;DR:** Cada componente debe contener "capas", un objeto dedicado para la web, la lógica y el código de acceso a datos. Esto no solo genera una clara separación de preocupaciones, sino que también facilita significativamente la simulacion y la prueba del sistema. Aunque este es un patrón muy común, los desarrolladores de API tienden a mezclar capas al pasar los objetos de la capa web (por ejemplo, Express req, res) a la lógica comercial y las capas de datos; esto hace que su aplicación dependa y sea accesible solo por marcos web específicos.
+
+**De lo contrario:** No se puede acceder a la aplicación que combina objetos web con otras capas mediante código de prueba, trabajos CRON, disparadores de colas de mensajes, etc.
+
+🔗 [**Leer Más: Estructura en capas tu applicacion**](./sections/projectstructre/createlayers.md)
+
+<br/><br/>
+
+## ![✔] 1.3 Envuelva las utilidades comunes como paquetes npm
+
+**TL;DR:** En una aplicación grande que constituye una gran base de código, las utilidades transversales, como un registrador, cifrado y similares, deben incluirse en su código y exponerse como paquetes npm privados. Esto permite compartirlos entre múltiples bases de código y proyectos.
+
+**De lo contrario:** Tendrás que inventar tu implementación y la rueda de dependencia
+
+🔗 [**Leer Más: Estructura por funcionalidad**](./sections/projectstructre/wraputilities.md)
+
+<br/><br/>
+
+## ![✔] 1.4 Separar la 'aplicación' y el 'servidor' de Express
+
+**TL;DR:** Evite el desagradable hábito de definir toda la aplicación [Express](https://expressjs.com/) en un solo archivo enorme: separe su definición 'Express' en al menos dos archivos: la API declaración (app.js) y las preocupaciones de red (WWW). Para una estructura aún mejor, ubique su declaración de API dentro de los componentes
+
+**De lo contrario:** Se podrá acceder a su API para realizar pruebas solo a través de llamadas HTTP (es más lento y mucho más difícil generar informes de cobertura). Probablemente no sea un gran placer mantener cientos de líneas de código en un solo archivo.
+
+🔗 [**Leer Más: separar la 'aplicación' y el 'servidor' de Express**](./sections/projectstructre/separateexpress.md)
+
+<br/><br/>
+
+## ![✔] 1.5 Usar configuración jerárquica, segura y en un entorno consciente
+
+**TL;DR:** Una configuración perfecta e impecable debe garantizar que (a) las claves se puedan leer desde el archivo Y desde la variable de entorno (b) los secretos se mantengan fuera del código confirmado (c) la configuración sea jerárquica para facilitar la búsqueda. Hay algunos paquetes que pueden ayudar a marcar la mayoría de esas casillas como [rc](https://www.npmjs.com/package/rc), [nconf](https://www.npmjs.com/package/nconf ), [config](https://www.npmjs.com/package/config) y [convict](https://www.npmjs.com/package/convict).
+
+**De lo contrario:** Si no se cumple alguno de los requisitos de configuración, simplemente se atascará el equipo de desarrollo o DevOps. probablemente ambos
+
+🔗 [**Leer Más: configuration best practices**](./sections/projectstructre/configguide.md)
+
+<br/><br/><br/>
